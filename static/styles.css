@@ -1,0 +1,64 @@
+.red{
+    color: #c51d34
+}
+
+.foot{
+    padding-top: 160px;
+}
+
+#icon {
+    width: 40px;
+    cursor: pointer;
+}
+
+:root{
+    --primary-color: #FFFFFF;
+    --secondary-color: #212121;
+}
+
+.dark-theme{
+    --primary-color: #212121;
+    --secondary-color: #FFFFFF;
+}
+
+.header{
+    color: var(--secondary-color)
+}
+
+.subheader{
+    color: var(--secondary-color)
+}
+
+.subpara{
+    color: var(--secondary-color)
+}
+
+.footer{
+    color: var(--secondary-color)
+}
+
+progress {
+   width: 1000px;
+   height : 25px;
+   border: 2px solid var(--secondary-color);
+}
+progress::-webkit-progress-bar {
+   background-color: var(--primary-color);
+}
+progress::-webkit-progress-value {
+   background-color: var(--secondary-color);
+}
+
+.button {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}

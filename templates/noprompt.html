@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+
+<style>
+        textarea {
+            caret-color: #c51d34;
+        }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$(function() {
+    var typingTimer; // Timer identifier
+    var allTimer
+    var doneTypingInterval = 5000; // 5 seconds in milliseconds
+    var timesUpInterval = 300000
+
+
+    $("#text").on('input', function () {
+        clearTimeout(typingTimer); // Clear the previous timer
+        allTimer = setTimeout(timesUp, timesUpInterval);
+
+
+        // Start a new timer when a keystroke is detected
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+
+    });
+
+    function doneTyping() {
+        counter();
+        // Retrieve the word count from the #wordCount element
+        var wordCount = parseInt($('#wordCount').text());
+        alert("You stopped typing for 5 seconds! Total words written: " + wordCount);
+        document.getElementById('text').value = "";
+        window.location.href = "/";
+
+    }
+
+    function timesUp() {
+        counter();
+        // Retrieve the word count from the #wordCount element
+        var wordCount = parseInt($('#wordCount').text());
+        alert("Times up. Total words written: " + wordCount);
+        document.getElementById('text').value = "";
+        window.location.href = "/";
+    }
+
+});
+
+    counter = function() {
+    var value = $('#text').val();
+
+    if (value.length == 0) {
+        $('#wordCount').html(0);
+        $('#totalChars').html(0);
+        $('#charCount').html(0);
+        $('#charCountNoSpace').html(0);
+        return;
+    }
+
+    var regex = /\s+/gi;
+    var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+    var totalChars = value.length;
+    var charCount = value.trim().length;
+    var charCountNoSpace = value.replace(regex, '').length;
+
+    $('#wordCount').html(wordCount);
+};
+
+$(document).ready(function() {
+    $('#count').click(counter);
+    $('#text').change(counter);
+    $('#text').keydown(counter);
+    $('#text').keypress(counter);
+    $('#text').keyup(counter);
+    $('#text').blur(counter);
+    $('#text').focus(counter);
+});
+
+    function start_countdown(){
+    var reverse_counter = 300;
+var downloadTimer = setInterval(function(){
+  document.getElementById("pbar").value = 300 - --reverse_counter;
+  if(reverse_counter <= 0)
+    clearInterval(downloadTimer);
+
+  document.getElementById("counting").innerHTML= reverse_counter;
+
+},1000);
+}
+
+let countdownStarted = false;
+
+// Function to start the countdown
+function startCountdown() {
+  if (!countdownStarted) {
+    console.log("Countdown started!");
+    countdownStarted = true;
+    start_countdown();
+    // You can add your countdown logic here
+  }
+}
+
+// Function to handle key press events
+function handleKeyPress(event) {
+  if (event.key) {
+    startCountdown();
+  } else {
+    console.log("No valid key pressed.");
+  }
+}
+
+// Add an event listener for keydown events
+document.addEventListener("keydown", handleKeyPress);
+
+
+
+</script>
+
+
+<div style="text-align: center; color: var(--secondary-color)">
+    <progress value="0" max="300" id="pbar" ></progress><p>Time Remaining: </p><b><p id="counting">300</p></b>
+</div>
+
+<div style="text-align: center; color: var(--secondary-color); padding-top: 50px" id="result"><h3>Words: <span id="wordCount">0</span></h3></div><br/>
+
+<div style="text-align: center; padding-top: 50px">
+    <textarea id="text" rows="15" cols="80" placeholder="Start Typing..." style="background-color: var(--primary-color); border:none; font-size:16pt; outline: none; color: var(--secondary-color);" autofocus></textarea>
+</div>
+
+</body>
+{% endblock %}
